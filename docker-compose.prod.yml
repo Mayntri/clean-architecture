@@ -1,0 +1,7 @@
+version: '3.9'
+
+services:
+  clean-architecture:
+    build:
+      target: production
+    command: node -r tsconfig-paths/register dist/bin/www

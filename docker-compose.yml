@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  clean-architecture:
+    container_name: clean-architecture
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: base
+    ports: 
+      - 3000:3000
+    expose:
+      - 3000
+    volumes:
+      - ./bin:/usr/app/bin
+      - ./src:/usr/app/src
+    command: npm start

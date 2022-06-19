@@ -2,7 +2,6 @@ import { Dog } from "../../interfaces";
 import * as mapper from "./mapper";
 import { DogService } from "../../../data-access/services/DogService";
 import { CreateDogDTO, UpdateDogDTO } from "../../dto/dog.dto";
-import {} from "../../../data-access/dal/dog";
 import { UUIDV4 } from "../../../types";
 import localCache from "../../../lib/local-cache";
 
@@ -25,11 +24,11 @@ export const deleteById = (id: UUIDV4): Promise<boolean> => {
 };
 
 export const getAll = async (): Promise<Dog[]> => {
-  const recipes = await DogService.getAll().then((recipes) =>
+  const dogs = await DogService.getAll().then((recipes) =>
     recipes.map(mapper.toDog)
   );
 
-  if (recipes.length) localCache.set(primaryCacheKey, recipes);
+  if (dogs.length) localCache.set(primaryCacheKey, dogs);
 
-  return recipes;
+  return dogs;
 };

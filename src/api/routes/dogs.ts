@@ -38,7 +38,6 @@ dogsRouter.post("/", async (req, res) => {
 
 dogsRouter.get("/", checkCache, async (req, res) => {
   const results = await dogController.getAll();
-  debugger;
   return res.send(results);
 });
 

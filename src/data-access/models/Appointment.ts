@@ -5,7 +5,7 @@ import { Dog } from '.'
 
 export interface AppointmentAttributes {
   id: UUIDV4;
-  DogId: string;
+  DogId: UUIDV4;
   date: Date;
 
   createdAt?: Date;

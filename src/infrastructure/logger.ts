@@ -2,7 +2,7 @@ import winston from "winston";
 
 const Logger = winston.createLogger({
   transports: [new winston.transports.Console({
-    silent: true
+    silent: false
   })],
   format: winston.format.combine(
     winston.format.timestamp({ format: "MMM-DD-YYYY HH:mm:ss" }),

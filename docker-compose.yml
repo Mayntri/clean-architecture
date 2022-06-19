@@ -14,7 +14,6 @@ services:
     volumes:
       - ./bin:/app/bin
       - ./src:/app/src
-      - /app/node_modules
     depends_on:
       - postgres
     command: npm run start:docker

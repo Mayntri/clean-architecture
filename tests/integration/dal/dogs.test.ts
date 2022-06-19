@@ -11,6 +11,7 @@ const dbTeardown = async () => {
 describe('Dog DAL', () => {
     let dogId: UUIDV4
     beforeAll(async () => {
+        console.log(123)
         await dbTeardown()
 
         ;({id: dogId} = await Dog.create({

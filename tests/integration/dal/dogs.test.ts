@@ -39,16 +39,6 @@ describe('Dog DAL', () => {
         })
     })
 
-    describe('findOrCreate method', () => {
-        beforeAll(async () => {
-            await Dog.create({
-                name: 'Brown Rice',
-                breed: 'brown-rice',
-                isGoodBoy: true,
-            })
-        })
-    })
-
     describe('Update method', () => {
         it('should update a specific existing Dog entry', async () => {
             await dogDal.update(dogId, {

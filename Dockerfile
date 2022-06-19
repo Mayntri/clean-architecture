@@ -1,15 +1,20 @@
 FROM node:16.15.1-alpine3.15 as base
 
-WORKDIR /usr/app
+WORKDIR /app
 
-COPY package*.json ./
+COPY package.json .
+
+COPY package-lock.json .
 
 RUN npm i
 
 COPY . .
 
+RUN npm run build
+
+EXPOSE 3000
+
+CMD [ "node", "dist/bin/www" ]
+
 USER node
 
-FROM base as production
-
-RUN npm run build

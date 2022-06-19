@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import http from "http";
 import { createTerminus } from "@godaddy/terminus";
 import app from "../src/app";
@@ -36,4 +37,12 @@ createTerminus(server, {
   onSignal,
 });
 
-server.listen(port, () => console.info(`App listening at http://localhost:${port}`));
+const start = async () => {
+  try {
+    server.listen(port, () => console.info(`Server started on port ${port}`));
+  } catch (error) {
+    process.exit(1);
+  }
+}
+
+void start()

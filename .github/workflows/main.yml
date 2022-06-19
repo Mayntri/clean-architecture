@@ -33,9 +33,3 @@ jobs:
         run: npm test
         env:
           DATABASE_URL: postgres://postgres@postgres/api_dev
-
-  deploy:
-    runs-on: ubuntu-20.04
-    needs: [build]
-    steps:
-      - uses: actions/checkout@v2

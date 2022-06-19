@@ -1,13 +1,15 @@
 import { Router } from "express";
+import { body } from "express-validator";
 import {
   GetAllAppoitmentsFilters,
   GetAllAppoitmentsOrder,
-} from "src/data-access/dal/types";
+} from "../../data-access/dal/types";
 import * as appointmentController from "../controllers/appointment";
 import {
   CreateAppointmentDTO,
   UpdateAppointmentDTO,
 } from "../dto/appointment.dto";
+import { validate } from "../validate";
 
 const appointmentsRouter = Router();
 
@@ -18,13 +20,20 @@ appointmentsRouter.get("/:id", async (req, res) => {
   return res.send(result);
 });
 
-appointmentsRouter.put("/:id", async (req, res) => {
-  const id = req.params.id;
-  const payload: UpdateAppointmentDTO = req.body;
+appointmentsRouter.put(
+  "/:id",
+  validate([
+    body("DogId").isUUID().withMessage("Should be uuiv4"),
+    body("date").isDate(),
+  ]),
+  async (req, res) => {
+    const id = req.params.id;
+    const payload: UpdateAppointmentDTO = req.body;
 
-  const result = await appointmentController.update(id, payload);
-  return res.send(result);
-});
+    const result = await appointmentController.update(id, payload);
+    return res.send(result);
+  }
+);
 
 appointmentsRouter.delete("/:id", async (req, res) => {
   const id = req.params.id;
@@ -35,15 +44,22 @@ appointmentsRouter.delete("/:id", async (req, res) => {
   });
 });
 
-appointmentsRouter.post("/", async (req, res, next) => {
-  const payload: CreateAppointmentDTO = req.body;
+appointmentsRouter.post(
+  "/",
+  validate([
+    body("DogId").isUUID().withMessage("Should be uuiv4"),
+    body("date").isDate(),
+  ]),
+  async (req, res) => {
+    const payload: CreateAppointmentDTO = req.body;
 
-  const result = await appointmentController.create(payload);
-  return res.send(result);
-});
+    const result = await appointmentController.create(payload);
+    return res.send(result);
+  }
+);
 
 appointmentsRouter.get("/", async (req, res) => {
-  const {order, ...filters} =
+  const { order, ...filters } =
     req.query as unknown as GetAllAppoitmentsFilters & {
       order: GetAllAppoitmentsOrder;
     };

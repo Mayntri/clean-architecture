@@ -8,9 +8,8 @@
     "db:console": "docker compose exec postgres psql -h localhost -U postgres -d api_dev",
     "db:migrate": "sequelize-cli db:migrate",
     "build": "tsc",
-    "prod": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up",
     "db": "docker compose up -d postgres",
-    "tests": "docker-compose -f docker-compose.dev.yml run clean-architecture npm run test",
+    "tests": "docker-compose run clean-architecture npm run test",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "start:docker": "ts-node-dev -r tsconfig-paths/register --poll --respawn --inspect=0.0.0.0 bin/www.ts"
@@ -25,6 +24,7 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-async-errors": "^3.1.1",
+    "express-validator": "^6.14.2",
     "express-winston": "^4.2.0",
     "helmet": "^5.1.0",
     "method-override": "^3.0.0",

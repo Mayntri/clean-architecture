@@ -6,6 +6,20 @@ on:
 jobs:
   build:
     runs-on: ubuntu-20.04
+    services:
+      postgres:
+        # Docker Hub image
+        image: postgres:14.3-alpine3.16
+        # Provide the password for postgres
+        env:
+          POSTGRES_DB: api_dev
+          POSTGRES_HOST_AUTH_METHOD: trust
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - uses: actions/checkout@v2
@@ -17,6 +31,8 @@ jobs:
         run: npm install
       - name: Run test
         run: npm test
+        env:
+          DATABASE_URL: postgres://postgres@postgres/api_dev
 
   deploy:
     runs-on: ubuntu-20.04

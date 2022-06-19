@@ -33,3 +33,4 @@ jobs:
         run: npm test
         env:
           DATABASE_URL: postgres://postgres@postgres/api_dev
+          NODE_ENV: test
